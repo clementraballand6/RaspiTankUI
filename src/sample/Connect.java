@@ -24,9 +24,6 @@ public class Connect implements Initializable {
     public Button log;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-
-
-
         this.log.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
