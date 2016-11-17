@@ -11,6 +11,8 @@ import java.io.IOException;
 public class Main extends Application {
 
     public static Stage stage;
+    public static int test;
+    public static Context context = new Context();
 
     public static void go(String stage) throws IOException {
         Main.stage.setTitle(stage);

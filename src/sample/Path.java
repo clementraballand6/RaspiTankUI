@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -27,15 +28,28 @@ public class Path implements Initializable {
     public ChoiceBox action;
     public TextField time;
     public Button add;
-    public static ListView list;
     public Button remove;
     public Button edit;
-    public static ObservableList<String> items = FXCollections.observableArrayList();
-    public static ArrayList<Action> actions = new ArrayList<Action>();
+    public ObservableList<Action> items = FXCollections.observableArrayList();
+    public ArrayList<Action> actions = new ArrayList<Action>();
+    public ListView<Action> list;
     public Button down;
     public Button up;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        this.list.setItems(items);
+        this.list.setCellFactory(param -> new ListCell<Action>() {
+            @Override
+            protected void updateItem(Action item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.action + " during " + item.duration + " second(s)");
+                }
+            }
+        });
 
         this.action.setItems(FXCollections.observableArrayList(
                 "Forward", "Backward", "Left", "Right"
@@ -46,23 +60,19 @@ public class Path implements Initializable {
         this.checkFields();
     }
 
-    public static void editAction(int actionId, Action action) {
-        Path.items.remove(actionId);
-        Path.items.add(actionId, action.toString());
-        Path.actions.remove(actionId);
-        Path.actions.add(actionId, action);
-        Path.list.getSelectionModel().select(actionId);
+    public void editAction(int index, Action action) {
+        items.set(index, action);
     }
 
     private void handleAddAction() {
-        this.list.setItems(items);
         this.add.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                    Action current = new Action(action.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(time.getText()));
+                    System.out.println(list.getItems().size());
+                    Action current = new Action(action.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(time.getText()),list.getItems().size());
                     actions.add(current);
-                    items.add(current.toString());
+                    items.add(current);
                 }
             }
         });
@@ -74,18 +84,12 @@ public class Path implements Initializable {
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     int selectedId = list.getSelectionModel().getSelectedIndex();
-                    String selectedText = list.getSelectionModel().getSelectedItem().toString();
                     if (selectedId == 0) {
                         return;
                     }
-                    // switch in obj array
-                    Action action = actions.get(selectedId);
-                    actions.remove(selectedId);
-                    actions.add(selectedId - 1, action);
-
-                    // switch in listView
+                    Action currentItem = items.get(selectedId);
                     items.remove(selectedId);
-                    items.add(selectedId - 1, selectedText);
+                    items.add(selectedId - 1, currentItem);
                     list.getSelectionModel().select(selectedId - 1);
                 }
             }
@@ -98,12 +102,12 @@ public class Path implements Initializable {
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     int selectedId = list.getSelectionModel().getSelectedIndex();
-                    String selectedText = list.getSelectionModel().getSelectedItem().toString();
                     if (selectedId == list.getItems().size() - 1) {
                         return;
                     }
+                    Action currentItem = items.get(selectedId);
                     items.remove(selectedId);
-                    items.add(selectedId + 1, selectedText);
+                    items.add(selectedId + 1, currentItem);
                     list.getSelectionModel().select(selectedId + 1);
                 }
             }
@@ -117,7 +121,6 @@ public class Path implements Initializable {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     int selectedId = list.getSelectionModel().getSelectedIndex();
                     items.remove(selectedId);
-                    actions.remove(selectedId);
                 }
             }
         });
@@ -129,6 +132,8 @@ public class Path implements Initializable {
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
 
+                    Main.context.setEditedAction(items.get(list.getSelectionModel().getSelectedIndex()));
+                    Main.context.setEditedActionIndex(list.getSelectionModel().getSelectedIndex());
                     // Load the fxml file and create a new stage for the popup
                     Pane page = null;
                     try {
@@ -142,10 +147,9 @@ public class Path implements Initializable {
                     dialogStage.initOwner(Main.stage);
                     Scene scene = new Scene(page, 300, 200);
                     dialogStage.setScene(scene);
-
-                    EditDialog.setEditedAction(list.getSelectionModel().getSelectedIndex(), actions.get(list.getSelectionModel().getSelectedIndex()));
-
                     dialogStage.showAndWait();
+
+                    editAction(Main.context.getEditedActionIndex(), Main.context.getEditedAction());
                 }
             }
         });

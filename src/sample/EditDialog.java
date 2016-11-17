@@ -18,56 +18,51 @@ import java.util.ResourceBundle;
  */
 public class EditDialog implements Initializable {
 
-    public static Action action;
-    public static ChoiceBox list;
-    public static TextField second;
-    public static Button close;
-    public static Button edit;
-    private static int actionId;
+    public Action action;
+    public ChoiceBox list;
+    public TextField second;
+    public Button close;
+    public Button edit;
 
-    public static void setEditedAction(int actionId, Action action) {
-        EditDialog.actionId = actionId;
-        EditDialog.action = action;
-
-        EditDialog.list.setItems(FXCollections.observableArrayList(
-                "Forward", "Backward", "Left", "Right"
-        ));
-        EditDialog.second.setText(Integer.toString(action.duration));
-        EditDialog.list.getSelectionModel().select(action.action);
-    }
-
-    public static void handleClose() {
-        EditDialog.close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    public void handleClose() {
+        close.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                    EditDialog.close();
+                    close();
                 }
             }
         });
     }
 
-    public static void handleEdit() {
-        EditDialog.edit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    public void handleEdit() {
+        edit.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                    Action newAction = new Action(EditDialog.list.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(EditDialog.second.getText()));
-                    Path.editAction(EditDialog.actionId, newAction);
-                    EditDialog.close();
+                    Action newAction = new Action(list.getSelectionModel().getSelectedItem().toString(), Integer.parseInt(second.getText()), action.index);
+                    Main.context.setEditedAction(newAction);
+                    close();
                 }
             }
         });
     }
 
-    public static void close(){
-        Stage stage = (Stage) EditDialog.close.getScene().getWindow();
+    public void close(){
+        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        EditDialog.handleClose();
-        EditDialog.handleEdit();
+        action = Main.context.getEditedAction();
+
+        list.setItems(FXCollections.observableArrayList(
+                "Forward", "Backward", "Left", "Right"
+        ));
+        second.setText(Integer.toString(action.duration));
+        list.getSelectionModel().select(action.action);
+        handleClose();
+        handleEdit();
     }
 }
