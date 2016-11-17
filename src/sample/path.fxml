@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Path">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Path">
    <children>
       <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
@@ -47,9 +47,10 @@
       </Label>
       <Button fx:id="add" layoutX="476.0" layoutY="122.0" mnemonicParsing="false" text="Add" />
       <ListView fx:id="list" editable="true" layoutX="65.0" layoutY="159.0" prefHeight="192.0" prefWidth="447.0" />
-      <Button fx:id="remove" layoutX="371.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Remove" />
+      <Button fx:id="remove" layoutX="354.0" layoutY="361.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Remove" />
       <Button fx:id="edit" layoutX="446.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Edit" />
       <Button fx:id="down" layoutX="140.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="v" />
       <Button fx:id="up" layoutX="65.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" rotate="180.0" text="v" />
+      <Button fx:id="viewPath" layoutX="261.0" layoutY="361.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="View Path" />
    </children>
 </Pane>

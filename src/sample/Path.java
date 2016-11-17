@@ -35,6 +35,7 @@ public class Path implements Initializable {
     public ListView<Action> list;
     public Button down;
     public Button up;
+    public Button viewPath;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         this.list.setItems(items);
@@ -121,6 +122,23 @@ public class Path implements Initializable {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     int selectedId = list.getSelectionModel().getSelectedIndex();
                     items.remove(selectedId);
+                }
+            }
+        });
+    }
+
+    private void handleViewPath(){
+        this.viewPath.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                    if(list.getItems().size() != 0){
+                        try {
+                            Main.go("viewPath");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         });
