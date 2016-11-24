@@ -1,5 +1,9 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+
 /**
  * Created by dev on 17/11/16.
  */
@@ -7,9 +11,14 @@ public class Context {
 
     public Action editedAction = null;
     public int editedActionIndex;
+    public ObservableList<Action> actionList = FXCollections.observableArrayList();
 
     public void setEditedAction(Action a){
         editedAction = a;
+    }
+
+    public void setActionList(ObservableList<Action> actionList) {
+        this.actionList = actionList;
     }
 
     public void setEditedActionIndex(int a){
@@ -19,7 +28,12 @@ public class Context {
     public Action getEditedAction(){
         return editedAction;
     }
+
     public int getEditedActionIndex(){
         return editedActionIndex;
+    }
+
+    public ObservableList<Action> getActionList() {
+        return actionList;
     }
 }

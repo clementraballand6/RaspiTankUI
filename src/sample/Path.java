@@ -17,6 +17,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.parser.JSONParser;
+import jdk.nashorn.internal.runtime.JSONFunctions;
+import jdk.nashorn.internal.runtime.JSONListAdapter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -133,6 +136,7 @@ public class Path implements Initializable {
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                     if(list.getItems().size() != 0){
+                        Main.context.setActionList(items);
                         try {
                             Main.go("viewPath");
                         } catch (IOException e) {
@@ -179,6 +183,7 @@ public class Path implements Initializable {
         this.handleSwitchUp();
         this.handleSwitchDown();
         this.handleEdit();
+        this.handleViewPath();
     }
 
     private void checkFields() {

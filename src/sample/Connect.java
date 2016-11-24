@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -22,26 +23,40 @@ public class Connect implements Initializable {
     public TextField login;
     @FXML
     public Button log;
+    public TextField ip;
+    public Label credentialsFailed;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        credentialsFailed.setVisible(false);
+        Http.API_PATH = this.ip.getText();
         this.log.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(isAuth()){
-                        try {
-                            Main.go("home");
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    try {
+                        if(isAuth()){
+                            try {
+                                Main.go("home");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            credentialsFailed.setVisible(true);
+                            password.setText("");
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
         });
     }
 
-    private boolean isAuth(){
-        return true;
-//        return this.login.getText().equals("admin") && this.password.getText().equals("root1234");
+    private boolean isAuth() throws Exception {
+        return Http.auth(this.login.getText(), this.password.getText());
+    }
+
+    public void handleIpChanged(KeyEvent keyEvent) {
+        Http.API_PATH = this.ip.getText();
     }
 }

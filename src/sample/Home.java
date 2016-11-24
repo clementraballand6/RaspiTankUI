@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
@@ -32,10 +31,5 @@ public class Home implements Initializable {
                 }
             }
         });
-    }
-
-    private boolean isAuth(){
-        return true;
-//        return this.login.getText().equals("admin") && this.password.getText().equals("root1234");
     }
 }
