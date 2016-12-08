@@ -1,5 +1,7 @@
 package sample;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,11 +19,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jdk.nashorn.api.scripting.JSObject;
 import jdk.nashorn.internal.parser.JSONParser;
 import jdk.nashorn.internal.runtime.JSONFunctions;
-import jdk.nashorn.internal.runtime.JSONListAdapter;
+//import jdk.nashorn.internal.parser.JSONParser;
+//import jdk.nashorn.internal.runtime.JSONFunctions;
+//import jdk.nashorn.internal.runtime.JSONListAdapter;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -105,6 +111,14 @@ public class Path implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    String jsonArray = "[";
+                    for (int i = 0; i < list.getItems().size(); i++) {
+                        jsonArray += list.getItems().get(i).toJson();
+                        if(i!=list.getItems().size()-1){
+                            jsonArray += ",";
+                        }
+                    }
+                    jsonArray += "]";
                     int selectedId = list.getSelectionModel().getSelectedIndex();
                     if (selectedId == list.getItems().size() - 1) {
                         return;
@@ -129,25 +143,6 @@ public class Path implements Initializable {
             }
         });
     }
-
-    private void handleViewPath(){
-        this.viewPath.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(list.getItems().size() != 0){
-                        Main.context.setActionList(items);
-                        try {
-                            Main.go("viewPath");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        });
-    }
-
     private void handleEdit() {
         this.edit.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -183,7 +178,6 @@ public class Path implements Initializable {
         this.handleSwitchUp();
         this.handleSwitchDown();
         this.handleEdit();
-        this.handleViewPath();
     }
 
     private void checkFields() {

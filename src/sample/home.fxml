@@ -103,7 +103,15 @@
             </Lighting>
          </effect>
       </Button>
-      <Button fx:id="planPath" defaultButton="true" layoutX="147.0" layoutY="327.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="306.0" text="Plan a path">
+      <Button fx:id="planPath" defaultButton="true" layoutX="313.0" layoutY="327.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="140.0" text="Create a path">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="showPaths" defaultButton="true" layoutX="144.0" layoutY="327.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="140.0" text="Show paths">
          <font>
             <Font size="18.0" />
          </font>

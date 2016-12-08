@@ -17,6 +17,7 @@ public class Home implements Initializable {
     public Button backward;
     public Button left;
     public Button planPath;
+    public Button showPaths;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         this.planPath.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -25,6 +26,19 @@ public class Home implements Initializable {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                     try {
                         Main.go("path");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        this.showPaths.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                    try {
+                        Main.go("viewPath");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

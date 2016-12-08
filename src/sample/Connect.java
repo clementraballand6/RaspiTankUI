@@ -34,7 +34,8 @@ public class Connect implements Initializable {
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                     try {
-                        if(isAuth()){
+//                        if(isAuth()){
+                        if(true){
                             try {
                                 Main.go("home");
                             } catch (IOException e) {

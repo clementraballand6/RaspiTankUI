@@ -14,6 +14,14 @@ public class Action {
         this.duration = duration;
     }
 
+    public String toJson(){
+        String json = "{";
+        json += "action:'" + this.action + "',";
+        json += "duration:" + this.duration;
+        json += "}";
+        return json;
+    }
+
     @Override
     public String toString() {
         return this.index + " " + this.action + " during " + this.duration + " second(s)";

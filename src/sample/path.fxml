@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Path">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Path">
    <children>
       <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
@@ -52,5 +52,6 @@
       <Button fx:id="down" layoutX="140.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="v" />
       <Button fx:id="up" layoutX="65.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" rotate="180.0" text="v" />
       <Button fx:id="viewPath" layoutX="261.0" layoutY="361.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="View Path" />
+      <Button fx:id="back" layoutX="65.0" layoutY="36.0" mnemonicParsing="false" text="Retour" />
    </children>
 </Pane>
