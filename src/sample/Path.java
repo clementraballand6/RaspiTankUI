@@ -190,4 +190,13 @@ public class Path implements Initializable {
             }
         });
     }
+
+    public void validPath(MouseEvent mouseEvent) throws IOException {
+        Main.context.allActions.add(Main.context.allActions.size() ,this.actions);
+        Main.go("viewPath");
+    }
+
+    public void goBack(MouseEvent mouseEvent) throws IOException {
+        Main.go("home");
+    }
 }

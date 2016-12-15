@@ -47,26 +47,80 @@ public class Home implements Initializable {
                 }
             }
         });
+
+        this.handleArrows();
+    }
+
+    public void move(String direction) throws Exception {
+        Http.get("direction/" + direction.toLowerCase());
+        System.out.println(direction);
+    }
+
+    public void handleArrows(){
+        this.forward.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    try {
+                        move("forward");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        this.backward.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    try {
+                        move("backward");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        this.left.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    try {
+                        move("left");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        this.right.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    try {
+                        move("right");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     public void keyPressed(KeyEvent keyEvent) throws Exception {
         String keyName = keyEvent.getCode().getName();
         if (!this.lastKey.equals(keyName)) {
             if ("Right".equals(keyName)) {
-                System.out.println(keyName);
-                Http.get("direction/right");
+                this.move(keyName);
             }
             if ("Left".equals(keyName)) {
-                Http.get("direction/left");
-                System.out.println(keyName);
+                this.move(keyName);
             }
             if ("Up".equals(keyName)) {
-                Http.get("direction/forward");
-                System.out.println(keyName);
+                this.move(keyName);
             }
             if ("Down".equals(keyName)) {
-                Http.get("direction/backward");
-                System.out.println(keyName);
+                this.move(keyName);
             }
         }
 
@@ -74,7 +128,13 @@ public class Home implements Initializable {
 
     }
 
-    public void keyReleased(KeyEvent keyEvent) {
+    public void keyReleased(KeyEvent keyEvent) throws Exception {
         this.lastKey = "";
+        System.out.println("stop");
+        Http.get("direction/stop");
+    }
+
+    public void stopMove(MouseEvent mouseEvent) throws Exception {
+        this.move("stop");
     }
 }

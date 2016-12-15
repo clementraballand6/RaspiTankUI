@@ -25,7 +25,7 @@ public class Main extends Application {
         this.stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("connect.fxml"));
 //        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("RaspiTank UI");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }

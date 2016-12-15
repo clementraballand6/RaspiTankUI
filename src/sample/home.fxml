@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Home">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Home">
    <children>
       <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
@@ -34,7 +34,7 @@
             <Font name="DejaVu Sans Bold" size="40.0" />
          </font>
       </Label>
-      <Button fx:id="forward" layoutX="229.0" layoutY="125.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="140.0" text="Forward">
+      <Button fx:id="forward" layoutX="229.0" layoutY="80.0" mnemonicParsing="false" onMouseReleased="#stopMove" prefHeight="59.0" prefWidth="140.0" text="Forward">
          <font>
             <Font size="24.0" />
          </font>
@@ -49,7 +49,7 @@
             </Lighting>
          </effect>
       </Button>
-      <Button fx:id="right" layoutX="369.0" layoutY="184.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Right">
+      <Button fx:id="right" layoutX="369.0" layoutY="139.0" mnemonicParsing="false" onMouseReleased="#stopMove" prefHeight="59.0" prefWidth="100.0" text="Right">
          <font>
             <Font name="SansSerif Regular" size="24.0" />
          </font>
@@ -67,7 +67,7 @@
             </Lighting>
          </effect>
       </Button>
-      <Button fx:id="backward" layoutX="229.0" layoutY="243.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="140.0" text="Backward">
+      <Button fx:id="backward" layoutX="229.0" layoutY="198.0" mnemonicParsing="false" onMouseReleased="#stopMove" prefHeight="59.0" prefWidth="140.0" text="Backward">
          <font>
             <Font size="24.0" />
          </font>
@@ -85,7 +85,7 @@
             </Lighting>
          </effect>
       </Button>
-      <Button fx:id="left" layoutX="129.0" layoutY="184.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="100.0" text="Left">
+      <Button fx:id="left" layoutX="129.0" layoutY="139.0" mnemonicParsing="false" onMouseReleased="#stopMove" prefHeight="59.0" prefWidth="100.0" text="Left">
          <font>
             <Font name="SansSerif Regular" size="24.0" />
          </font>
@@ -118,6 +118,11 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </Button>
+      <Button layoutX="249.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#stopMove" prefHeight="49.0" prefWidth="100.0" text="STOP" textFill="#f80000">
+         <font>
+            <Font size="25.0" />
+         </font>
       </Button>
    </children>
 </Pane>

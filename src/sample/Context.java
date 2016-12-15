@@ -4,12 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 /**
  * Created by dev on 17/11/16.
  */
 public class Context {
 
     public Action editedAction = null;
+    public boolean newAction = false;
+    public ArrayList<ArrayList<Action>> allActions = new ArrayList<ArrayList<Action>>();
     public int editedActionIndex;
     public ObservableList<Action> actionList = FXCollections.observableArrayList();
 

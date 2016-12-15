@@ -16,8 +16,8 @@ public class Action {
 
     public String toJson(){
         String json = "{";
-        json += "action:'" + this.action + "',";
-        json += "duration:" + this.duration;
+        json += "\"action\":\"" + this.action + "\",";
+        json += "\"duration\":" + this.duration;
         json += "}";
         return json;
     }

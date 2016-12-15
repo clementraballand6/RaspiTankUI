@@ -31,33 +31,60 @@ public class ViewPath implements Initializable {
 
     public ChoiceBox actionsList;
     public ListView<Action> list;
-    public Action[][] actions;
+    public ArrayList<ArrayList<Action>> actions = new ArrayList<ArrayList<Action>>();
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        Gson g = new Gson();
-        this.actions = g.fromJson("[[{\"action\":\"Right\",\"duration\":1},{\"action\":\"Right\",\"duration\":3}],[{\"action\":\"Right\",\"duration\":1},{\"action\":\"Right\",\"duration\":4}]]", Action[][].class);
+        actionsList.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                setList((int) number);
+//                setList((int) number2);
+            }
+        });
+
         List<Integer> box = new LinkedList<>();
-        for(int i = 0; i < this.actions.length; i++){
+
+        this.actions = Main.context.allActions;
+        for(int i = 0; i < this.actions.size(); i++){
             box.add(i);
         }
 
         this.actionsList.setItems(FXCollections.observableArrayList(box));
         this.actionsList.getSelectionModel().selectFirst();
         this.setList(0);
-        actionsList.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                setList((int) number2);
-            }
-        });
     }
 
     public void setList(int index){
             ArrayList<Action> actionList = new ArrayList<>();
-            for(int k = 0; k < actions[index].length; k++){
-                actionList.add(actions[index][k]);
+            if(actions.size() == 0){
+                return;
+            }
+            for(int k = 0; k < actions.get(index).size(); k++){
+                actionList.add(actions.get(index).get(k));
             }
             ObservableList<Action> actions = FXCollections.observableArrayList(actionList);
             list.setItems(actions);
+    }
+
+    public void runPath(MouseEvent mouseEvent) {
+        String jsonArray = "[";
+        for (int i = 0; i < list.getItems().size(); i++) {
+            jsonArray += list.getItems().get(i).toJson();
+            if(i!=list.getItems().size()-1){
+                jsonArray += ",";
+            }
+        }
+        jsonArray += "]";
+        System.out.println(jsonArray);
+
+        try {
+            Http.get("runJsonPath/" + jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goBack(MouseEvent mouseEvent) throws IOException {
+        Main.go("path");
     }
 }

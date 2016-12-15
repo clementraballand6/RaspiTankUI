@@ -52,6 +52,11 @@
       <Button fx:id="down" layoutX="140.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="v" />
       <Button fx:id="up" layoutX="65.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" rotate="180.0" text="v" />
       <Button fx:id="viewPath" layoutX="261.0" layoutY="361.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="View Path" />
-      <Button fx:id="back" layoutX="65.0" layoutY="36.0" mnemonicParsing="false" text="Retour" />
+      <Button fx:id="back" layoutX="65.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Retour" />
+      <Button fx:id="validPath" layoutX="418.0" layoutY="73.0" mnemonicParsing="false" onMouseClicked="#validPath" text="Valid path" textFill="RED">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
